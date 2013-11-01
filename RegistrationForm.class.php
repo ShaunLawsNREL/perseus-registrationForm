@@ -14,13 +14,11 @@ use Perseus\Services\PhpMail;
 
 class RegistrationForm extends Form {
 
-  //public $mail_template = 'registrationform/email';
-  public $mail_template = '';
+  public $mail_template = 'registrationform/email';
   //public $from = 'Shaun.Laws@nrel.gov';
 
   // Constructor
   public function __construct(array $settings = array()) {
-    
     parent::__construct($settings);
 
     // Instantiate the database service.
@@ -303,7 +301,7 @@ class RegistrationForm extends Form {
     }
 
     // Email the submitted data, if the site email has been set.
-    /*if (!empty($perseus->settings['site_email']['mail'])) {
+    if (!empty($perseus->settings['site_email']['mail'])) {
       $mailer = new PhpMail();
       $mailer->addRecipient($perseus->settings['site_email']['mail'], $perseus->settings['site_email']['name']);
       $mailer->from($data['mail'], $data['name']);
@@ -312,15 +310,14 @@ class RegistrationForm extends Form {
       $body = 'The following information has been added to the BESC Characterization Workshop registration database:<br />';
       $body .= '<br />';
       $body .= $submission;
-      pd($body);
       $args = array(
         'content' => $body,
       );
-      //$themed_body = $perseus->theme($this->mail_template, $args);
-      if ($themed_body) {
+      $themed_body = $perseus->theme($this->mail_template, $args);
+      if (!empty($themed_body)) {
         $body = $themed_body;
       }
-      $mailer->body($themed_body);
+      $mailer->body($body);
       
       if ($mailer->send()) {
         System::setMessage('Mail sent!');
@@ -330,7 +327,7 @@ class RegistrationForm extends Form {
       }
     } else {
       System::setMessage('Unable to email submission - site email not specified in settings/settings.php' . '.', SYSTEM_ERROR);
-    }*/
+    }
   }
 
   public function submitted() {
