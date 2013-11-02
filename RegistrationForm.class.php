@@ -52,10 +52,10 @@ class RegistrationForm extends Form {
     $this->createPhoneInput();
     $this->createFaxInput();
     $this->createEmailInput();
-    $this->createHtml('provisions', $provisions, 11);
+    //$this->createHtml('provisions', $provisions, 11);
     //$this->createMealRadios();
     $this->createDietaryNeedTextarea();
-    $this->createHtml('contact', $contact, 14);
+    //$this->createHtml('contact', $contact, 14);
     $this->createSubmit();
 
     // Run the validators and submittors.
