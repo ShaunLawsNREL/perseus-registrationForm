@@ -26,7 +26,7 @@ class RegistrationForm extends Form {
     include($perseus->config_file);
     $perseus_db = new MySQL($perseus, $db);
     $perseus->setDb($perseus_db);
-
+ 
     // Instantiate the Installer and install.
     $installer = new RegistrationSystemInstaller($perseus);
     $installer->install();
@@ -52,10 +52,10 @@ class RegistrationForm extends Form {
     $this->createPhoneInput();
     $this->createFaxInput();
     $this->createEmailInput();
-    //$this->createHtml('provisions', $provisions);
+    $this->createHtml('provisions', $provisions, 11);
     //$this->createMealRadios();
     $this->createDietaryNeedTextarea();
-    //$this->createHtml('contact', $contact);
+    $this->createHtml('contact', $contact, 14);
     $this->createSubmit();
 
     // Run the validators and submittors.
@@ -134,7 +134,7 @@ class RegistrationForm extends Form {
       'cols'      => 39,
       'rows'      => 5,
     );
-    $item->weight = 1;
+    $item->weight = 13;
     $this->addChild('dietary_needs', $item);
   }
 
@@ -150,7 +150,7 @@ class RegistrationForm extends Form {
       'maxlength' => 255,
       'size'      => 39,
     );
-    $item->weight = 1;
+    $item->weight = 10;
     $this->addChild('mail', $item);
   }
 
@@ -165,19 +165,18 @@ class RegistrationForm extends Form {
       'maxlength' => 20,
       'size'      => 39,
     );
-    $item->weight = 1;
+    $item->weight = 9;
     $this->addChild('fax', $item);
   }
 
   /**
    * Create an HTML field.
    */
-  private function createHtml($name, $html) {
-    $data = array(
-      'name' => $name,
-      'html' => $html,
-    );
-    $this->addItem('html', $data);
+  private function createHtml($name, $html, $weight) {
+    $item = new Item\Description($html);
+    $item->wrap = TRUE;
+    $item->weight = $weight;
+   $this->addChild($name, $item);
   }
 
   /**
@@ -224,7 +223,7 @@ class RegistrationForm extends Form {
       'maxlength' => 20,
       'size'      => 39,
     );
-    $item->weight = 1;
+    $item->weight = 8;
     $this->addChild('phone', $item);
   }
 
@@ -248,7 +247,7 @@ class RegistrationForm extends Form {
 
     $submit = new Item\Submit('submit', array(
       'value' => 'Send',
-      'weight' => 10,
+      'weight' => 17,
       'wrap' => TRUE,
     ));
     $this->addChild('submit', $submit);
@@ -265,7 +264,7 @@ class RegistrationForm extends Form {
       'maxlength' => 128,
       'size'      => 39,
     );
-    $item->weight = 1;
+    $item->weight = 7;
     $this->addChild('zip', $item);
   }
 
