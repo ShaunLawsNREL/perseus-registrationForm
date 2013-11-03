@@ -51,10 +51,10 @@ class RegistrationForm extends Form {
     $this->createZipInput();
     $this->createPhoneInput();
     $this->createFaxInput();
-    $this->createEmailInput();
+    $this->createEmailInput($provisions);
     //$this->createHtml('provisions', $provisions, 11);
     //$this->createMealRadios();
-    $this->createDietaryNeedTextarea();
+    $this->createDietaryNeedTextarea($contact);
     //$this->createHtml('contact', $contact, 14);
     $this->createSubmit();
 
@@ -125,7 +125,7 @@ class RegistrationForm extends Form {
   /**
    * Create the email field.
    */
-  private function createDietaryNeedTextarea() {
+  private function createDietaryNeedTextarea($description) {
     $item = new Item\Textarea('dietary_needs');
     $item->label = 'Other special dietary needs:';
     $item->wrap = TRUE;
@@ -135,13 +135,14 @@ class RegistrationForm extends Form {
       'rows'      => 5,
     );
     $item->weight = 13;
+    $item->description = $description;
     $this->addChild('dietary_needs', $item);
   }
 
   /**
    * Create the email field.
    */
-  private function createEmailInput() {
+  private function createEmailInput($description) {
     $item = new Item\Text('mail');
     $item->label = 'E-mail:';
     $item->required = TRUE;
@@ -151,6 +152,7 @@ class RegistrationForm extends Form {
       'size'      => 39,
     );
     $item->weight = 10;
+    $item->description = $description;
     $this->addChild('mail', $item);
   }
 
