@@ -51,11 +51,11 @@ class RegistrationForm extends Form {
     $this->createZipInput();
     $this->createPhoneInput();
     $this->createFaxInput();
+    //@todo - the provisdions (and contacts) should be added as html rather than
+    // as a description on the element above
     $this->createEmailInput($provisions);
-    //$this->createHtml('provisions', $provisions, 11);
-    //$this->createMealRadios();
+    $this->createMealRadios();
     $this->createDietaryNeedTextarea($contact);
-    //$this->createHtml('contact', $contact, 14);
     $this->createSubmit();
 
     // Run the validators and submittors.
@@ -185,16 +185,17 @@ class RegistrationForm extends Form {
    * Create the affiliation field.
    */
   private function createMealRadios() {
-    $data = array(
-      'name' => 'meal',
+    $radios = new Item\Radios('meal', array(
       'label' => 'I will require a vegetarian meal:',
+      'weight' => 12,
       'options' => array(
         0 => 'No',
         1 => 'Yes',
       ),
-      'default' => 0,
-    );
-    $this->addItem('radios', $data);
+      'wrap' => TRUE,
+      'default_value ' => 0,
+    ));
+    $this->addChild('meal', $radios);
   }
 
   /**
@@ -239,7 +240,7 @@ class RegistrationForm extends Form {
       'options' => array_merge(get_us_states(), get_canadian_provinces()),
       'wrap' => TRUE,
     ));
-    $this->addChild('select', $select);
+    $this->addChild('state', $select);
   }
 
   /**
